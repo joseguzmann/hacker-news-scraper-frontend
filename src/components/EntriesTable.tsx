@@ -1,24 +1,35 @@
-import type { HackerNewsEntry } from '@/types/hackerNews';
+import type {HackerNewsEntry} from '@/types/hackerNews';
+import {Table, TableBody, TableCell, TableHead, TableHeader, TableRow,} from '@/components/ui/table';
 
-export const EntriesTable = ({ entries }: { entries: HackerNewsEntry[] }) => (
-    <table className="w-full border-collapse">
-        <thead>
-        <tr className="bg-gray-100 text-left">
-            <th className="p-2">#</th>
-            <th className="p-2">Title</th>
-            <th className="p-2">Points</th>
-            <th className="p-2">Comments</th>
-        </tr>
-        </thead>
-        <tbody>
-        {entries.map(e => (
-            <tr key={e.rank} className="border-t">
-                <td className="p-2">{e.rank}</td>
-                <td className="p-2">{e.title}</td>
-                <td className="p-2">{e.points}</td>
-                <td className="p-2">{e.comments}</td>
-            </tr>
-        ))}
-        </tbody>
-    </table>
+interface EntriesTableProps {
+    entries: HackerNewsEntry[];
+}
+
+export const EntriesTable = ({entries}: EntriesTableProps) => (
+    <div className="w-full overflow-auto rounded-lg border border-neutral-700">
+        <Table className="min-w-full divide-y divide-neutral-700">
+            <TableHeader className="bg-neutral-800 sticky top-0">
+                <TableRow>
+                    <TableHead className="w-[64px] text-gray-200">#</TableHead>
+                    <TableHead className="text-gray-200">Title</TableHead>
+                    <TableHead className="text-right text-gray-200">Points</TableHead>
+                    <TableHead className="text-right text-gray-200">Comments</TableHead>
+                </TableRow>
+            </TableHeader>
+
+            <TableBody className="bg-neutral-900 divide-y divide-neutral-700">
+                {entries.map((entry) => (
+                    <TableRow
+                        key={entry.rank}
+                        className="even:bg-neutral-800 hover:bg-neutral-700 transition-colors"
+                    >
+                        <TableCell className="font-medium text-gray-100">{entry.rank}</TableCell>
+                        <TableCell className="text-gray-100">{entry.title}</TableCell>
+                        <TableCell className="text-right text-gray-100">{entry.points}</TableCell>
+                        <TableCell className="text-right text-gray-100">{entry.comments}</TableCell>
+                    </TableRow>
+                ))}
+            </TableBody>
+        </Table>
+    </div>
 );
