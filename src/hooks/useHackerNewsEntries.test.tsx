@@ -1,3 +1,4 @@
+/* eslint-disable react/display-name */
 import { describe, it, expect, beforeEach, vi } from 'vitest';
 import type { Mock } from 'vitest';
 import { renderHook } from '@testing-library/react-hooks';
