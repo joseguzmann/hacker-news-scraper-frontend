@@ -1,40 +1,109 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/pages/api-reference/create-next-app).
+# Hacker News Scraper Frontend
 
-## Getting Started
+Frontend for the Hacker News Scraper project.
 
-First, run the development server:
+This web application connects to the backend API to display the first 30 entries from [Hacker News](https://news.ycombinator.com/). Users can apply different filters to view entries based on title word count and sort criteria.
+
+## Project Structure
+
+- **Framework**: React + Next.js
+- **State Management**: React Query
+- **Testing**: Vitest + @testing-library/react
+- **Styling**: TailwindCSS
+
+## Available Scripts
+
+Run the following commands inside the project directory.
+
+### Install dependencies
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+pnpm install
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### Run development server
 
-You can start editing the page by modifying `pages/index.tsx`. The page auto-updates as you edit the file.
+```bash
+pnpm dev
+```
 
-[API routes](https://nextjs.org/docs/pages/building-your-application/routing/api-routes) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.ts`.
+The application will be available at [http://localhost:3000](http://localhost:3000).
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/pages/building-your-application/routing/api-routes) instead of React pages.
+### Run tests
 
-This project uses [`next/font`](https://nextjs.org/docs/pages/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```bash
+pnpm test
+```
 
-## Learn More
+This runs all unit tests using Vitest.
 
-To learn more about Next.js, take a look at the following resources:
+### Build for production
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn-pages-router) - an interactive Next.js tutorial.
+```bash
+pnpm build
+```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+### Start production server
 
-## Deploy on Vercel
+```bash
+pnpm start
+```
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## Features
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/pages/building-your-application/deploying) for more details.
+- Fetch and display the first 30 entries from Hacker News.
+- Filter entries:
+    - **longTitles**: Entries with more than 5 words in the title, ordered by number of comments (descending).
+    - **shortTitles**: Entries with 5 or fewer words in the title, ordered by points (descending).
+- Loading and error states are handled gracefully.
+
+## API
+
+This frontend consumes the following API endpoint from the backend:
+
+```http
+GET /hacker-news/entries?filter={filterMode}
+```
+
+Where `filterMode` can be:
+- `longTitles`
+- `shortTitles`
+
+Example:
+```bash
+curl https://api.hacker-news.jsguzman.space/hacker-news/entries?filter=longTitles
+```
+
+The backend API is documented at:
+
+```
+https://api.hacker-news.jsguzman.space/docs
+```
+
+## Deployment
+
+This project is set up for deployment on [Vercel](https://vercel.com/). A new deployment is triggered automatically on each commit to the `main` branch.
+
+Production URL:
+
+```
+https://hacker-news.jsguzman.space
+```
+
+## Folder Structure
+
+```
+src/
+  components/     // UI components (FilterBar, EntriesTable, etc.)
+  hooks/          // Custom hooks (e.g., useHackerNewsEntries)
+  lib/            // API client
+  pages/          // Next.js pages
+  types/          // TypeScript types
+```
+
+## Contributing
+Feel free to open issues and pull requests to improve the project.
+
+## License
+This project is licensed under the MIT License.
+
